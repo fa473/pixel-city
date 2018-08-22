@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina4_7" orientation="portrait">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -8,6 +8,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -15,22 +16,22 @@
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="MapVC" customModule="pixel_city" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="BvW-Kc-pGJ"/>
-                        <viewControllerLayoutGuide type="bottom" id="jym-HA-GqN"/>
-                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" zoomEnabled="NO" rotateEnabled="NO" pitchEnabled="NO" showsUserLocation="YES" showsCompass="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ea9-kT-95b">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="666"/>
+                                <rect key="frame" x="0.0" y="88" width="375" height="723"/>
                             </mapView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="URt-hb-tMs">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="88"/>
+                                <color key="backgroundColor" red="0.96470588239999999" green="0.65098039220000004" blue="0.13725490200000001" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="15h-WY-wJC">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
+                                <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Double-tap to drop a pin and view photos" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0c8-jV-k9k">
-                                        <rect key="frame" x="32" y="34" width="311" height="22"/>
+                                        <rect key="frame" x="32.666666666666657" y="11" width="311" height="22"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="311" id="8xo-xA-yor"/>
                                             <constraint firstAttribute="height" constant="22" id="zPs-yi-qE8"/>
@@ -40,22 +41,22 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" red="0.96470588235294119" green="0.65098039215686276" blue="0.13725490196078433" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="70" id="57z-ps-bu9"/>
+                                    <constraint firstAttribute="height" constant="44" id="57z-ps-bu9"/>
                                     <constraint firstItem="0c8-jV-k9k" firstAttribute="centerY" secondItem="15h-WY-wJC" secondAttribute="centerYWithinMargins" id="IT3-Ki-y3k"/>
                                     <constraint firstItem="0c8-jV-k9k" firstAttribute="centerX" secondItem="15h-WY-wJC" secondAttribute="centerX" id="eUB-za-t0J"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vFk-bb-pqM">
-                                <rect key="frame" x="0.0" y="666" width="375" height="1"/>
+                                <rect key="frame" x="0.0" y="811" width="375" height="1"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="fkX-LM-WNU"/>
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ENZ-8w-98E">
-                                <rect key="frame" x="309" y="596" width="50" height="50"/>
+                                <rect key="frame" x="309" y="741" width="50" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="6bs-Zy-m7J"/>
                                     <constraint firstAttribute="width" constant="50" id="AVS-Zh-0cH"/>
@@ -68,19 +69,24 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="URt-hb-tMs" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="0Hs-mm-TEw"/>
                             <constraint firstAttribute="bottom" secondItem="vFk-bb-pqM" secondAttribute="bottom" id="5V6-Y2-ClB"/>
-                            <constraint firstItem="15h-WY-wJC" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="AV3-iY-30Z"/>
-                            <constraint firstItem="15h-WY-wJC" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailing" id="BN0-Ng-h18"/>
-                            <constraint firstAttribute="trailing" secondItem="vFk-bb-pqM" secondAttribute="trailing" id="HMQ-3M-AaK"/>
-                            <constraint firstItem="Ea9-kT-95b" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="X6W-OD-SUZ"/>
-                            <constraint firstItem="Ea9-kT-95b" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailing" id="h6G-rE-vka"/>
-                            <constraint firstItem="Ea9-kT-95b" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="oFV-mp-49c"/>
+                            <constraint firstItem="15h-WY-wJC" firstAttribute="top" secondItem="3Pn-Lr-5rc" secondAttribute="top" id="AV3-iY-30Z"/>
+                            <constraint firstItem="15h-WY-wJC" firstAttribute="trailing" secondItem="3Pn-Lr-5rc" secondAttribute="trailing" id="BN0-Ng-h18"/>
+                            <constraint firstAttribute="trailing" secondItem="URt-hb-tMs" secondAttribute="trailing" id="H8O-GW-YCo"/>
+                            <constraint firstItem="3Pn-Lr-5rc" firstAttribute="trailing" secondItem="vFk-bb-pqM" secondAttribute="trailing" id="HMQ-3M-AaK"/>
+                            <constraint firstItem="Ea9-kT-95b" firstAttribute="leading" secondItem="3Pn-Lr-5rc" secondAttribute="leading" id="X6W-OD-SUZ"/>
+                            <constraint firstItem="15h-WY-wJC" firstAttribute="bottom" secondItem="URt-hb-tMs" secondAttribute="bottom" id="etg-Vd-7iC"/>
+                            <constraint firstItem="Ea9-kT-95b" firstAttribute="trailing" secondItem="3Pn-Lr-5rc" secondAttribute="trailing" id="h6G-rE-vka"/>
+                            <constraint firstItem="URt-hb-tMs" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="liX-J4-J3L"/>
+                            <constraint firstItem="Ea9-kT-95b" firstAttribute="top" secondItem="URt-hb-tMs" secondAttribute="bottom" id="oFV-mp-49c"/>
                             <constraint firstAttribute="trailingMargin" secondItem="ENZ-8w-98E" secondAttribute="trailing" id="oiL-X1-4TK"/>
                             <constraint firstItem="vFk-bb-pqM" firstAttribute="top" secondItem="ENZ-8w-98E" secondAttribute="bottom" constant="20" id="w3w-Kp-akF"/>
-                            <constraint firstItem="15h-WY-wJC" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="xRG-L8-xBa"/>
-                            <constraint firstItem="vFk-bb-pqM" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="yBl-tm-GqH"/>
+                            <constraint firstItem="15h-WY-wJC" firstAttribute="leading" secondItem="3Pn-Lr-5rc" secondAttribute="leading" id="xRG-L8-xBa"/>
+                            <constraint firstItem="vFk-bb-pqM" firstAttribute="leading" secondItem="3Pn-Lr-5rc" secondAttribute="leading" id="yBl-tm-GqH"/>
                             <constraint firstItem="vFk-bb-pqM" firstAttribute="top" secondItem="Ea9-kT-95b" secondAttribute="bottom" id="zk5-X8-pnT"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="3Pn-Lr-5rc"/>
                     </view>
                     <connections>
                         <outlet property="mapView" destination="Ea9-kT-95b" id="a55-zf-Ria"/>
