@@ -47,30 +47,33 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate {
         collectionView?.dataSource = self
         collectionView?.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
 
+        // 3d touch preview
+        registerForPreviewing(with: self, sourceView: collectionView!)
+
         pullUpView.addSubview(collectionView!)
     }
 
-    func addDoubleTap(){
+    func addDoubleTap() {
         let doubleTap = UITapGestureRecognizer(target: self, action: #selector(dropPin(sender:)))
         doubleTap.numberOfTapsRequired = 2
         doubleTap.delegate = self
         mapView.addGestureRecognizer(doubleTap)
     }
 
-    func addSwipe(){
+    func addSwipe() {
         let swipe = UISwipeGestureRecognizer(target: self, action: #selector(animateViewDown))
         swipe.direction = .down
         pullUpView.addGestureRecognizer(swipe)
     }
 
-    func animateViewUp(){
+    func animateViewUp() {
         pullUpViewHeightConstraint.constant = 300
         UIView.animate(withDuration: 0.3) {
             self.view.layoutIfNeeded()
         }
     }
 
-    @objc func animateViewDown(){
+    @objc func animateViewDown() {
         cancelAllSessions()
         pullUpViewHeightConstraint.constant = 0
         UIView.animate(withDuration: 0.3) {
@@ -78,7 +81,7 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate {
         }
     }
 
-    func addSpinner(){
+    func addSpinner() {
         spinner = UIActivityIndicatorView()
         spinner?.center = CGPoint(x: (screenSize.width / 2) - ((spinner?.frame.width)! / 2), y: 150)
         spinner?.activityIndicatorViewStyle = .whiteLarge
@@ -87,7 +90,7 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate {
         collectionView?.addSubview(spinner!)
     }
 
-    func removeSpinner(){
+    func removeSpinner() {
         if spinner != nil {
             spinner?.removeFromSuperview()
         }
@@ -102,7 +105,7 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate {
         collectionView?.addSubview(progressLbl!)
     }
 
-    func removeProgressLbl(){
+    func removeProgressLbl() {
         if progressLbl != nil {
             progressLbl?.removeFromSuperview()
         }
@@ -128,13 +131,13 @@ extension MapVC: MKMapViewDelegate {
         return pinAnnotation
     }
 
-    func centerMapOnUserLocation(){
+    func centerMapOnUserLocation() {
         guard let coordinate = locationManager.location?.coordinate else { return }
         let coordinateRegion = MKCoordinateRegionMakeWithDistance(coordinate, regionRadius * 2.0, regionRadius * 2.0)
         mapView.setRegion(coordinateRegion, animated: true)
     }
 
-    @objc func dropPin(sender: UITapGestureRecognizer){
+    @objc func dropPin(sender: UITapGestureRecognizer) {
         // when user sets new pin, remove current pin and spinner
         removePin()
         removeSpinner()
@@ -166,7 +169,7 @@ extension MapVC: MKMapViewDelegate {
         mapView.addAnnotation(annotation)
 
         // zoom to 1000m radius
-        let coordinateRegion =  MKCoordinateRegionMakeWithDistance(touchCoordinate, regionRadius * 2.0, regionRadius * 2.0)
+        let coordinateRegion = MKCoordinateRegionMakeWithDistance(touchCoordinate, regionRadius * 2.0, regionRadius * 2.0)
         mapView.setRegion(coordinateRegion, animated: true)
 
         retrieveUrls(forAnnotation: annotation) { (finished) in
@@ -182,7 +185,7 @@ extension MapVC: MKMapViewDelegate {
         }
     }
 
-    func removePin(){
+    func removePin() {
         for annotation in mapView.annotations {
             mapView.removeAnnotation(annotation)
         }
@@ -223,9 +226,9 @@ extension MapVC: MKMapViewDelegate {
     }
 
     func removeMapViewGestureRecognizers() {
-        if (mapView.subviews[0].gestureRecognizers != nil){
+        if (mapView.subviews[0].gestureRecognizers != nil) {
             for gesture in mapView.subviews[0].gestureRecognizers! {
-                if (gesture.isKind(of: UITapGestureRecognizer.self)){
+                if (gesture.isKind(of: UITapGestureRecognizer.self)) {
                     mapView.subviews[0].removeGestureRecognizer(gesture)
                 }
             }
@@ -247,7 +250,7 @@ extension MapVC: CLLocationManagerDelegate {
     }
 }
 
-extension MapVC: UICollectionViewDelegate,UICollectionViewDataSource{
+extension MapVC: UICollectionViewDelegate, UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
@@ -257,7 +260,7 @@ extension MapVC: UICollectionViewDelegate,UICollectionViewDataSource{
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "photoCell", for: indexPath) as? PhotoCell else { return UICollectionViewCell()}
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "photoCell", for: indexPath) as? PhotoCell else { return UICollectionViewCell() }
         let imageFromIndex = imageArray[indexPath.row]
         let imageView = UIImageView(image: imageFromIndex)
         cell.addSubview(imageView)
@@ -265,9 +268,26 @@ extension MapVC: UICollectionViewDelegate,UICollectionViewDataSource{
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let PopVC = storyboard?.instantiateViewController(withIdentifier: "PopVC") as? PopVC else {return}
+        guard let PopVC = storyboard?.instantiateViewController(withIdentifier: "PopVC") as? PopVC else { return }
         PopVC.initData(forImage: imageArray[indexPath.row])
         present(PopVC, animated: true, completion: nil)
     }
+}
 
+extension MapVC: UIViewControllerPreviewingDelegate {
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+        show(viewControllerToCommit, sender: self)
+
+    }
+
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+        guard let indexPath = collectionView?.indexPathForItem(at: location), let cell = collectionView?.cellForItem(at: indexPath) else { return nil }
+
+        guard let popVC = storyboard?.instantiateViewController(withIdentifier: "PopVC") as? PopVC else { return nil }
+
+        popVC.initData(forImage: imageArray[indexPath.row])
+
+        previewingContext.sourceRect = cell.contentView.frame
+        return popVC
+    }
 }
